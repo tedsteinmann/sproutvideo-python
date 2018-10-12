@@ -8,11 +8,12 @@ def downloadFile(name,theurl,file_path):
     r=requests.get(theurl)
     completeName = os.path.expanduser(file_path + "/" + name + ".mp4")
     downloadPath = Path(completeName)
+    print("Working with file: ",name)
     if not downloadPath.is_file():
+        print("File not found in local file system.")
         print("****Connected****")
-        print("Downloading: ",name)
         f=open(completeName,'wb');
-        print("Donloading ",name," ......")
+        print("Downloading .....")
         for chunk in r.iter_content(chunk_size=255):
             if chunk: # filter out keep-alive new chunks
                 f.write(chunk)

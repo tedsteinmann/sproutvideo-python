@@ -31,3 +31,5 @@ token = YOUR API TOKEN
 
 ## Known issues:
 For some reason -- you need to delete the first header row in videos.tsv after it generates ...
+Also: You need to globally enable downloading under account settings for the source of video you are downloading.
+The program can be run multiple times and will skip/not re-download files that already exist in the download directory.

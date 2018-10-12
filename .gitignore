@@ -1,0 +1,6 @@
+bak
+__pycache__/
+myvenv
+*.json
+*.tsv
+config.ini

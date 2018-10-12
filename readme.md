@@ -28,3 +28,6 @@ You need to collect an API token from sprout. Place this in a file named ```conf
 [auth]
 token = YOUR API TOKEN
 ```
+
+## Known issues:
+For some reason -- you need to delete the first header row in videos.tsv after it generates ...

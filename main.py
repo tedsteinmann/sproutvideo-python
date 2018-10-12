@@ -1,3 +1,7 @@
+'''
+Author: @tedsteinmann
+Description: Download videos from sprout video by tag
+'''
 from configparser import ConfigParser
 from pathlib import Path
 from files import downloadFile
@@ -7,7 +11,13 @@ import json
 from sprout.client import SproutClient
 from links import getLinks
 from videos import getVideos
-
+# Customize these
+# ---------------
+local_path = "~/Box Sync/NAMP-GIF/"
+tags = ['NAMP','GIF IV']
+type = 'source' # type of download: source, hd or sd
+download_url = "https://sproutvideo.com/videos/"
+# ---------------
 config = ConfigParser()
 config.read('config.ini')
 token = config.get('auth', 'token')
@@ -16,7 +26,6 @@ token = config.get('auth', 'token')
 # [auth]
 # token = YOUR API TOKEN
 # ----------
-tags = ['NAMP','GIF IV']
 videos_file = Path("videos.json")
 video_data_file = Path("videos.tsv")
 # ----------
@@ -36,15 +45,16 @@ else:
 if not video_data_file.is_file():
     # write the data file if it doesn't exist
     print("Reading select video data from API.")
-    data_file = getVideos(video_json, token)
-
-# Read data from file system
-data_file = DataFrame.from_csv(video_data_file, sep='\t')
+    # Read data from file system
+    data_file = getVideos(video_json, token, type)
+else:
     # get videos from API
+    data_file = DataFrame.from_csv(video_data_file, sep='\t')
 
 # get videos from file
 for index, row in data_file.iterrows():
     #print(row.name,row[0],row[4])
-    file_path = "~/Box Sync/NAMP-GIF/" + row.name
-    print(row[0],row[4],file_path)
-    # downloadFile(row[0],row[4],file_path)
+    file_path = local_path + "/" + row.name
+    url = download_url + row[4] + "/download?type=" + type
+    #print(url)
+    downloadFile(row[0],url,file_path)

@@ -7,7 +7,7 @@ file_name = "videos.tsv"
 def getVideos(video_json, token, type):
 
     dict = [video_json][0]
-    list=[['tag','title','description','created_at','updated_at','id']]
+    list=[]
     #loop over all videos
     try:
         for tag in dict:
@@ -21,7 +21,7 @@ def getVideos(video_json, token, type):
         return
 
     df = DataFrame(list) #not sure why there are weird headers.
-    df.to_csv(file_name, sep='\t', encoding='utf-8', index=False)
+    df.to_csv(file_name, sep='\t', encoding='utf-8', index=False, header=False)
     print('Printed ',file_name,' to local file system')
     return df
 
